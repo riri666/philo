@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:49:15 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/07/08 19:44:53 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/07/08 19:48:40 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,5 @@ void	ft_finish(t_data *philos)
 	while (i < philos->number)
 		pthread_mutex_destroy(&(philos->forks[i++]));
 	free(philos->forks);
+	free(philos->tid);
 }

@@ -6,7 +6,7 @@
 #    By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/07 18:52:19 by rchbouki          #+#    #+#              #
-#    Updated: 2023/07/08 16:41:57 by rchbouki         ###   ########.fr        #
+#    Updated: 2023/07/08 18:24:02 by rchbouki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ RM = rm -f
 HEADER = -I ./includes
 OBJS = ${SRCS:.c=.o}
 SRCS =	philo.c \
-		check_arguments.c \
+		init_philo.c \
 		libft_utils.c
 NAME = philo
 

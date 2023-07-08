@@ -1,0 +1,2 @@
+# philo
+Philsophers Project :)

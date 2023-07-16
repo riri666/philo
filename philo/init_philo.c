@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:49:15 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/07/08 19:48:40 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/07/15 15:37:59 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	ft_isdigit(int size, char **s)
 	while (i < size)
 	{
 		j = 0;
-		while (s[i][j])	
+		while (s[i][j])
 		{
 			if ((s[i][j] < '0') || (s[i][j] > '9'))
 				return (0);
@@ -61,35 +61,39 @@ int	check_arguments(int size, char **s)
 
 t_data	*ft_init_philo(int size, char **s)
 {
-	t_data	*philos;
-	
+	t_data	*data;
 	int		i;
 
 	i = 0;
-	philos->number = ft_atoi(s[1]);
-	philos->t_die = ft_atoi(s[2]);
-	philos->t_eat = ft_atoi(s[3]);
-	philos->t_sleep = ft_atoi(s[4]);
-	if (size == 5)
-		philos->max_meals = -1;
-	else
-		philos->max_meals = ft_atoi(s[5]);
-	philos->finished = 0;
-	philos->forks = malloc(sizeof(pthread_mutex_t) * philos->number);
-	if (!philos->forks)
+	data = malloc(sizeof(t_data) * 1);
+	if (!data)
 		return (NULL);
-	while (i < philos->number)
-		pthread_mutex_init(&(philos->forks[i++]), NULL);
-	return (philos);
+	data->number = ft_atoi(s[1]);
+	data->t_die = ft_atoi(s[2]);
+	data->t_eat = ft_atoi(s[3]);
+	data->t_sleep = ft_atoi(s[4]);
+	if (size == 5)
+		data->max_meals = -1;
+	else
+		data->max_meals = ft_atoi(s[5]);
+	data->finished = 0;
+	data->forks = malloc(sizeof(pthread_mutex_t) * data->number);
+	if (!data->forks)
+		return (NULL);
+	while (i < data->number)
+		pthread_mutex_init(&(data->forks[i++]), NULL);
+	return (data);
 }
 
-void	ft_finish(t_data *philos)
+void	ft_finish(t_data *data)
 {
 	int	i;
 
 	i = 0;
-	while (i < philos->number)
-		pthread_mutex_destroy(&(philos->forks[i++]));
-	free(philos->forks);
-	free(philos->tid);
+	while (i < data->number)
+		pthread_mutex_destroy(&(data->forks[i++]));
+	pthread_mutex_destroy(write);
+	free(data->forks);
+	free(data->tid);
+	free(data);
 }

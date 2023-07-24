@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:49:13 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/07/15 16:38:00 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/07/24 17:43:10 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,16 @@ long int	ft_atoi(char *s)
 	return (res);
 }
 
+/* My version of the time functions because they are more precise */
 u_int64_t	get_time(void)
 {
 	struct timeval	tv;
 	
 	if (gettimeofday(&tv, NULL))
-		return (error("gettimeofday() FAILURE\n", NULL));
+	{
+		printf("gettimeofday() FAILURE\n");
+		exit(EXIT_FAILURE);
+	}
 	return ((tv.tv_sec * (u_int64_t)1000) + (tv.tv_usec / 1000));
 }
 

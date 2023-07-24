@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:49:15 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/07/15 15:37:59 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/07/24 13:36:03 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,6 @@ static int	ft_limits(int size, char **s)
 
 int	check_arguments(int size, char **s)
 {
-	int	i;
-
-	i = 0;
 	if (size < 5 || size >= 7)
 		return (0);
 	else
@@ -59,10 +56,15 @@ int	check_arguments(int size, char **s)
 	return (1);
 }
 
+/* This function will be : 
+	- Initializing the data structure
+	- Setting the times of death, sleep and food of the philos
+	- Setting the death int to 0 which will only turn to 1 if someone dies and the max_meals will be -1 only if it hasn't been given
+	- Initializing the fork mutexes, fork number equals number of philos */
 t_data	*ft_init_philo(int size, char **s)
 {
-	t_data	*data;
 	int		i;
+	t_data	*data;
 
 	i = 0;
 	data = malloc(sizeof(t_data) * 1);
@@ -82,9 +84,13 @@ t_data	*ft_init_philo(int size, char **s)
 		return (NULL);
 	while (i < data->number)
 		pthread_mutex_init(&(data->forks[i++]), NULL);
+	pthread_mutex_init(&(data->write), NULL);
+	pthread_mutex_init(&(data->death), NULL);
+	data->start = get_time();
 	return (data);
 }
 
+/* This function will be freeing all of the allocated elements and destroying all of the mutexes before exiting the program. */
 void	ft_finish(t_data *data)
 {
 	int	i;
@@ -92,8 +98,10 @@ void	ft_finish(t_data *data)
 	i = 0;
 	while (i < data->number)
 		pthread_mutex_destroy(&(data->forks[i++]));
-	pthread_mutex_destroy(write);
+	pthread_mutex_destroy(&(data->write));
+	pthread_mutex_destroy(&(data->death));
 	free(data->forks);
 	free(data->tid);
+	free(data->philos);
 	free(data);
 }

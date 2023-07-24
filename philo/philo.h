@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 18:52:17 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/07/15 16:38:19 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/07/24 17:32:11 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,33 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <pthread.h>
+# include <sys/time.h>
 
+/* Main structure with the elements that concern all of the philos */
 typedef struct s_data
 {
-	int				t_die;
-	int				t_eat;
 	int				number;
+	unsigned int	t_die;
+	unsigned int	t_eat;
 	int				t_sleep;
-	int				finished;
 	int				max_meals;
+	int				finished;
+	struct s_philo	*philos;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	write;
+	pthread_mutex_t write;
+	pthread_mutex_t	death;
 	pthread_t		*tid;
-	t_philo			*philos;
+	long long int	start;
 }	t_data;
 
+/* Structure each philo will have of its own */
 typedef struct s_philo
 {
+	long long int	time_after_food;
+	int				times_eaten;
 	int				id;
 	struct s_data	*data;
+	pthread_mutex_t time;
 }	t_philo;
 
 long int	ft_atoi(char *s);

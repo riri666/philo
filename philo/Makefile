@@ -6,12 +6,12 @@
 #    By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/07 18:52:19 by rchbouki          #+#    #+#              #
-#    Updated: 2023/07/15 16:37:56 by rchbouki         ###   ########.fr        #
+#    Updated: 2023/07/19 16:10:32 by rchbouki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 RM = rm -f
 HEADER = -I ./includes
 OBJS = ${SRCS:.c=.o}
@@ -29,7 +29,7 @@ EOC = "\033[0;0m"
 
 ${NAME} : ${OBJS}
 	@echo $(GREEN)"     Compiling Riri's Philo..." $(EOC)
-	@${CC} ${CFLAGS} -o ${NAME} ${OBJS}
+	@${CC} ${CFLAGS} -o ${NAME} ${OBJS} -lpthread
 
 all : ${NAME}
 

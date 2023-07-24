@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 18:52:15 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/07/11 21:44:18 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/07/24 12:42:09 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	main(int argc, char *argv[])
 {
 	t_data	*data;
 
+	// Checking if there are any errors in the parsing
 	if (!check_arguments(argc, argv))
 	{
 		printf("You need to type in valid numeric arguments as follows :\n");
@@ -23,8 +24,10 @@ int	main(int argc, char *argv[])
 		printf("[time_to_eat] [time_to_sleep] [OPTIMAL : max_times_of_food]\n");
 		exit(EXIT_FAILURE);
 	}
+	// Initializing the big data structure
 	data = ft_init_philo(argc, argv);
 	if (!data)
 		return (0);
+	// Creating the cycle of philosophers until death
 	philo_creation(data);
 }

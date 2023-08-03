@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 19:40:47 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/08/03 14:06:35 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:41:28 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,11 @@ static int	philo_death(t_philo philo)
 	}
 	else if ((philo.times_eaten != data->max_meals) && (get_time() - philo.time_after_food) >= data->t_die)
 	{
+		printf("IN DEATH %ld %d\n", get_time() - philo.time_after_food, philo.id);
 		data->finished = 1;
 		ft_printf(data, "is dead", philo.id);
 		while (i < data->number)
-		{
-			pthread_mutex_unlock(&(data->forks[i]));
-			i++;
-		}
+			pthread_mutex_unlock(&(data->forks[i++]));
 		pthread_mutex_unlock(&(data->write));
 		pthread_mutex_unlock(&(philo.time));
 	}
@@ -63,6 +61,7 @@ static int	philo_food(t_philo philo, t_data *data, int id)
 	ft_printf(data, "is eating", id);
 	ft_usleep(data->t_eat);
 	philo.time_after_food = get_time();
+	printf("FOOD %ld %d\n", get_time() - philo.time_after_food, philo.id);
 	pthread_mutex_unlock(&(data->forks[id]));
 	pthread_mutex_unlock(&(data->forks[second_fork]));
 	philo.times_eaten++;
@@ -89,6 +88,7 @@ static void	*thread_function(void *args)
 		if (((data->max_meals != -1) && (philo.times_eaten < data->max_meals)) || data->max_meals == -1)
 			if (philo_food(philo, data, id) == 0)
 				break;
+		printf("BEFORE SLEEP %ld %d\n", get_time() - philo.time_after_food, philo.id);
 		ft_printf(data, "is sleeping", id);
 		ft_usleep(data->t_sleep);
 		if (philo_death(philo))

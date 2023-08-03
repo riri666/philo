@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 18:52:17 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/08/03 14:00:15 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:31:13 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ typedef struct s_data
 	pthread_mutex_t write;
 	pthread_mutex_t	death;
 	pthread_t		*tid;
-	long int	start;
+	long int		start;
 }	t_data;
 
 /* Structure each philo will have of its own */
 typedef struct s_philo
 {
-	long int	time_after_food;
+	long int		time_after_food;
 	int				times_eaten;
 	int				id;
 	struct s_data	*data;

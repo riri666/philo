@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:49:15 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/07/24 13:36:03 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/08/03 18:00:07 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ t_data	*ft_init_philo(int size, char **s)
 	else
 		data->max_meals = ft_atoi(s[5]);
 	data->finished = 0;
+	data->enough_meals = 0;
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->number);
 	if (!data->forks)
 		return (NULL);
@@ -93,15 +94,20 @@ t_data	*ft_init_philo(int size, char **s)
 /* This function will be freeing all of the allocated elements and destroying all of the mutexes before exiting the program. */
 void	ft_finish(t_data *data)
 {
-	int	i;
+	int		i;
+	t_philo	*philos;
 
 	i = 0;
-	while (i < data->number)
-		pthread_mutex_destroy(&(data->forks[i++]));
+	philos = data->philos;
 	pthread_mutex_destroy(&(data->write));
 	pthread_mutex_destroy(&(data->death));
-	free(data->forks);
+	while (i < data->number)
+	{
+		pthread_mutex_destroy(&(data->forks[i]));
+		pthread_mutex_destroy(&(philos[i++].time));
+	}
+	free(philos);
 	free(data->tid);
-	free(data->philos);
+	free(data->forks);
 	free(data);
 }

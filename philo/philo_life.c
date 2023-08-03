@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 19:40:47 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/08/03 15:20:58 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/08/03 18:04:24 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ static int	philo_death(t_philo *philo)
 	if (data->finished == 1)
 	{
 		pthread_mutex_unlock(&(data->death));
+		while (i < data->number)
+			pthread_mutex_unlock(&(data->forks[i++]));
+		pthread_mutex_unlock(&(data->write));
+		pthread_mutex_unlock(&(philo->time));
 		return (data->finished);
 	}
 	else if ((philo->times_eaten != data->max_meals) && (get_time() - philo->time_after_food) > data->t_die)
@@ -52,6 +56,8 @@ static int	philo_food(t_philo *philo, t_data *data, int id)
 	else
 		second_fork = id - 1;
 	pthread_mutex_lock(&(data->forks[id]));
+	if (philo_death(philo))
+		return (0);
 	ft_printf(data, "took his first fork", id);
 	if (philo_death(philo))
 		return (0);
@@ -60,13 +66,21 @@ static int	philo_food(t_philo *philo, t_data *data, int id)
 		return (0);
 	ft_printf(data, "took his second fork", id);
 	ft_printf(data, "is eating", id);
+	philo->times_eaten++;
+	if (philo->times_eaten == data->max_meals)
+		data->enough_meals++;
+	if (data->enough_meals == data->number)
+	{
+		pthread_mutex_lock(&(data->death));
+		data->finished = 1;
+		pthread_mutex_unlock(&(data->death));
+	}
 	ft_usleep(data->t_eat);
 	pthread_mutex_lock(&(philo->time));
 	philo->time_after_food = get_time();
 	pthread_mutex_unlock(&(philo->time));
 	pthread_mutex_unlock(&(data->forks[id]));
 	pthread_mutex_unlock(&(data->forks[second_fork]));
-	philo->times_eaten++;
 	if (philo_death(philo))
 		return (0);
 	return (1);
@@ -87,9 +101,8 @@ static void	*thread_function(void *args)
 	philo->times_eaten = 0;
 	while (1)
 	{
-		if (((data->max_meals != -1) && (philo->times_eaten < data->max_meals)) || data->max_meals == -1)
-			if (philo_food(philo, data, id) == 0)
-				break;
+		if (philo_food(philo, data, id) == 0)
+			break;
 		ft_printf(data, "is sleeping", id);
 		ft_usleep(data->t_sleep);
 		if (philo_death(philo))

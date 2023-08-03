@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:49:13 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/07/24 17:43:10 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:00:30 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,12 @@ int	ft_usleep(useconds_t time)
 	start = get_time();
 	while ((get_time() - start) < time)
 		usleep(time / 10);
-	return(0);
+	return (0);
+}
+
+void	ft_printf(t_data *data, char *msg, int id)
+{
+	pthread_mutex_lock(&(data->write));
+	printf("%ld Philospher %d %s\n", get_time() - data->start, id, msg);
+	pthread_mutex_unlock(&(data->write));
 }

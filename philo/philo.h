@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 18:52:17 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/07/24 17:32:11 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:00:15 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ typedef struct s_data
 	pthread_mutex_t write;
 	pthread_mutex_t	death;
 	pthread_t		*tid;
-	long long int	start;
+	long int	start;
 }	t_data;
 
 /* Structure each philo will have of its own */
 typedef struct s_philo
 {
-	long long int	time_after_food;
+	long int	time_after_food;
 	int				times_eaten;
 	int				id;
 	struct s_data	*data;
@@ -50,6 +50,7 @@ long int	ft_atoi(char *s);
 int			ft_strlen(char *s);
 u_int64_t	get_time(void);
 int			ft_usleep(useconds_t time);
+void		ft_printf(t_data *data, char *msg, int id);
 
 t_data		*ft_init_philo(int size, char **s);
 void		philo_creation(t_data *philos);

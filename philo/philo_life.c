@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 19:40:47 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/07/24 17:58:44 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:06:35 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,10 @@ static int	philo_death(t_philo philo)
 		pthread_mutex_unlock(&(data->death));
 		return (data->finished);
 	}
-	/* if (data->number == 1)
-	{
-		pthread_mutex_lock(&(data->write));
-		printf("%lld Philosopher %d is dead\n", get_time() - data->start, philo.id);
-		pthread_mutex_unlock(&(data->write));
-		data->finished = 1;
-	} */
 	else if ((philo.times_eaten != data->max_meals) && (get_time() - philo.time_after_food) >= data->t_die)
 	{
 		data->finished = 1;
-		pthread_mutex_lock(&(data->write));
-		printf("%lld Philosopher %d is dead\n", get_time() - data->start, philo.id);
-		pthread_mutex_unlock(&(data->write));
+		ft_printf(data, "is dead", philo.id);
 		while (i < data->number)
 		{
 			pthread_mutex_unlock(&(data->forks[i]));
@@ -61,20 +52,15 @@ static int	philo_food(t_philo philo, t_data *data, int id)
 		second_fork = data->number - 1;
 	else
 		second_fork = id - 1;
-	// Checking if this philo or any philo died
 	pthread_mutex_lock(&(data->forks[id]));
-	pthread_mutex_lock(&(data->write));
-	printf("%lld Philosopher %d took his first fork\n", get_time() - data->start, id);
-	pthread_mutex_unlock(&(data->write));
+	ft_printf(data, "took his first fork", id);
+	if (philo_death(philo))
+		return (0);
 	pthread_mutex_lock(&(data->forks[second_fork]));
 	if (philo_death(philo))
 		return (0);
-	pthread_mutex_lock(&(data->write));
-	printf("%lld Philosopher %d took his second fork\n", get_time() - data->start, id);
-	printf("%lld Philosopher %d is eating\n", get_time() - data->start, id);
-	pthread_mutex_unlock(&(data->write));
-	if (philo_death(philo))
-		return (0);
+	ft_printf(data, "took his second fork", id);
+	ft_printf(data, "is eating", id);
 	ft_usleep(data->t_eat);
 	philo.time_after_food = get_time();
 	pthread_mutex_unlock(&(data->forks[id]));
@@ -97,22 +83,17 @@ static void	*thread_function(void *args)
 	id = philo.id;
 	if (id % 2 == 0)
 		ft_usleep(50);
-	philo.time_after_food = get_time();
 	philo.times_eaten = 0;
 	while (1)
 	{
 		if (((data->max_meals != -1) && (philo.times_eaten < data->max_meals)) || data->max_meals == -1)
 			if (philo_food(philo, data, id) == 0)
 				break;
-		pthread_mutex_lock(&(data->write));
-		printf("%lld Philosopher %d is sleeping\n", get_time() - data->start, id);
-		pthread_mutex_unlock(&(data->write));
+		ft_printf(data, "is sleeping", id);
 		ft_usleep(data->t_sleep);
 		if (philo_death(philo))
 			break;
-		pthread_mutex_lock(&(data->write));
-		printf("%lld Philosopher %d is thinking\n", get_time() - data->start, id);
-		pthread_mutex_unlock(&(data->write));
+		ft_printf(data, "is thinking", id);
 	}
 	return (NULL);
 }

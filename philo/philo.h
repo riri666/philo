@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 18:52:17 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/08/08 16:08:08 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/08/08 16:57:04 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,6 @@ typedef struct s_philo
 	long long		time_after_food;
 	int				times_eaten;
 	pthread_mutex_t time;
-	int				first_lock;
-	int				second_lock;
-	pthread_mutex_t first_mutex;
-	pthread_mutex_t second_mutex;
 }	t_philo;
 
 int			check_arguments(int size, char **s);

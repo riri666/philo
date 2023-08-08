@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 18:52:17 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/08/03 17:35:02 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/08/08 16:08:08 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,29 +33,39 @@ typedef struct s_data
 	pthread_mutex_t write;
 	pthread_mutex_t	death;
 	pthread_t		*tid;
-	long int		start;
+	long long		start;
 	int				enough_meals;
 }	t_data;
 
 /* Structure each philo will have of its own */
 typedef struct s_philo
 {
-	long int		time_after_food;
-	int				times_eaten;
 	struct s_data	*data;
-	pthread_mutex_t time;
 	int				id;
+	long long		time_after_food;
+	int				times_eaten;
+	pthread_mutex_t time;
+	int				first_lock;
+	int				second_lock;
+	pthread_mutex_t first_mutex;
+	pthread_mutex_t second_mutex;
 }	t_philo;
+
+int			check_arguments(int size, char **s);
 
 long int	ft_atoi(char *s);
 int			ft_strlen(char *s);
+int			ft_strcmp(char *s1, char *s2);
+
 u_int64_t	get_time(void);
 int			ft_usleep(useconds_t time);
 void		ft_printf(t_data *data, char *msg, int id);
 
 t_data		*ft_init_philo(int size, char **s);
 void		philo_creation(t_data *philos);
+void		food_utils(t_data *data, t_philo *philo);
+int			philo_death(t_philo *philo);
+void		main_death(t_data *data, t_philo *philo);
 void		ft_finish(t_data *philos);
-int			check_arguments(int size, char **s);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 18:52:15 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/08/03 17:36:27 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/08/08 15:49:05 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,5 @@ int	main(int argc, char *argv[])
 		return (0);
 	// Creating the cycle of philosophers until death
 	philo_creation(data);
+	ft_finish(data);
 }

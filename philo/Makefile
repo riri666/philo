@@ -6,19 +6,20 @@
 #    By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/07 18:52:19 by rchbouki          #+#    #+#              #
-#    Updated: 2023/08/03 18:06:40 by rchbouki         ###   ########.fr        #
+#    Updated: 2023/08/08 16:02:49 by rchbouki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=thread
 RM = rm -f
 HEADER = -I ./includes
 OBJS = ${SRCS:.c=.o}
 SRCS =	philo.c \
 		init_philo.c \
 		philo_life.c \
-		philo_utils.c
+		philo_utils.c \
+		life_utils.c
 NAME = philo
 
 GREEN = "\033[1;32m"

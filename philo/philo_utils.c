@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:49:13 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/08/03 17:34:50 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/08/08 15:58:25 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,19 @@ long int	ft_atoi(char *s)
 	return (res);
 }
 
+int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (s1[i] && s2[j])
+		if (s1[i++] != s2[j++])
+			return (-1);
+	return (0);
+}
+
 /* My version of the time functions because they are more precise */
 u_int64_t	get_time(void)
 {
@@ -61,11 +74,4 @@ int	ft_usleep(useconds_t time)
 	while ((get_time() - start) < time)
 		usleep(time / 10);
 	return (0);
-}
-
-void	ft_printf(t_data *data, char *msg, int id)
-{
-	pthread_mutex_lock(&(data->write));
-	printf("%ld Philospher %d %s\n", get_time() - data->start, id, msg);
-	pthread_mutex_unlock(&(data->write));
 }

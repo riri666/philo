@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 15:58:23 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/08/09 14:32:56 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/08/09 17:16:02 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ int	philo_death(t_philo *philo)
 	i = data->finished;
 	pthread_mutex_unlock(&(data->death));
 	pthread_mutex_unlock(&(philo->time));
-	if (data->number == 1 && i == 1)
-		pthread_mutex_unlock(&(data->forks[philo->id]));
 	return (i);
 }
 

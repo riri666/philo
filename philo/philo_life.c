@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 19:40:47 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/08/08 17:02:15 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/08/09 14:29:44 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ static int	philo_food(t_philo *philo, t_data *data, int id)
 	if (check_death(data))
 	{
 		pthread_mutex_unlock(&(data->forks[id]));
-		pthread_mutex_unlock(&(data->forks[second_fork]));
+		if (data->number != 1)
+			pthread_mutex_unlock(&(data->forks[second_fork]));
 		return (0);
 	}
 	ft_printf(data, "took his second fork", id);

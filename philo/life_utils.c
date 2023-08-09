@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 15:58:23 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/08/08 16:12:09 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/08/09 14:32:56 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	philo_death(t_philo *philo)
 	i = data->finished;
 	pthread_mutex_unlock(&(data->death));
 	pthread_mutex_unlock(&(philo->time));
+	if (data->number == 1 && i == 1)
+		pthread_mutex_unlock(&(data->forks[philo->id]));
 	return (i);
 }
 
@@ -73,8 +75,11 @@ void	main_death(t_data *data, t_philo *philo)
 	{
 		i = 0;
 		while (i < data->number)
-			if (philo_death(&(philo[i++])))			
+		{
+			if (philo_death(&(philo[i])))			
 				break;
+			i++;
+		}
 		if (i != data->number)
 			break ;
 	}

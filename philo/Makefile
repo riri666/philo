@@ -6,12 +6,12 @@
 #    By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/07 18:52:19 by rchbouki          #+#    #+#              #
-#    Updated: 2023/08/09 15:25:36 by rchbouki         ###   ########.fr        #
+#    Updated: 2023/08/09 20:41:05 by rchbouki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=thread 
+CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=thread 
 RM = rm -f
 HEADER = -I ./includes
 OBJS = ${SRCS:.c=.o}

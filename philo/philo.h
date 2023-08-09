@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 18:52:17 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/08/08 17:05:22 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/08/09 20:38:28 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_data
 	pthread_mutex_t	*forks;
 	pthread_mutex_t write;
 	pthread_mutex_t	death;
+	pthread_mutex_t	meals;
 	pthread_t		*tid;
 	long long		start;
 	int				enough_meals;

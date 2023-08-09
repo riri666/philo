@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:49:15 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/08/03 18:00:07 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/08/09 20:39:55 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ t_data	*ft_init_philo(int size, char **s)
 		pthread_mutex_init(&(data->forks[i++]), NULL);
 	pthread_mutex_init(&(data->write), NULL);
 	pthread_mutex_init(&(data->death), NULL);
+	pthread_mutex_init(&(data->meals), NULL);
 	data->start = get_time();
 	return (data);
 }
@@ -101,6 +102,7 @@ void	ft_finish(t_data *data)
 	philos = data->philos;
 	pthread_mutex_destroy(&(data->write));
 	pthread_mutex_destroy(&(data->death));
+	pthread_mutex_destroy(&(data->meals));
 	while (i < data->number)
 	{
 		pthread_mutex_destroy(&(data->forks[i]));

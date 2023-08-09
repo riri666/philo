@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:49:15 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/08/09 20:39:55 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/08/09 21:21:53 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,7 @@ int	check_arguments(int size, char **s)
 	return (1);
 }
 
-/* This function will be : 
-	- Initializing the data structure
-	- Setting the times of death, sleep and food of the philos
-	- Setting the death int to 0 which will only turn to 1 if someone dies and the max_meals will be -1 only if it hasn't been given
-	- Initializing the fork mutexes, fork number equals number of philos */
+/* This function will be : Initializing the data structure */
 t_data	*ft_init_philo(int size, char **s)
 {
 	int		i;
@@ -85,14 +81,12 @@ t_data	*ft_init_philo(int size, char **s)
 		return (NULL);
 	while (i < data->number)
 		pthread_mutex_init(&(data->forks[i++]), NULL);
-	pthread_mutex_init(&(data->write), NULL);
 	pthread_mutex_init(&(data->death), NULL);
 	pthread_mutex_init(&(data->meals), NULL);
-	data->start = get_time();
 	return (data);
 }
 
-/* This function will be freeing all of the allocated elements and destroying all of the mutexes before exiting the program. */
+/* This function will free the allocated elements and destroy the mutexes */
 void	ft_finish(t_data *data)
 {
 	int		i;

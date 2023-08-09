@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:49:13 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/08/08 17:08:05 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/08/09 20:55:07 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	ft_strcmp(char *s1, char *s2)
 u_int64_t	get_time(void)
 {
 	struct timeval	tv;
-	
+
 	if (gettimeofday(&tv, NULL))
 	{
 		printf("gettimeofday() FAILURE\n");
@@ -70,6 +70,7 @@ u_int64_t	get_time(void)
 int	ft_usleep(useconds_t time)
 {
 	u_int64_t	start;
+
 	start = get_time();
 	while ((get_time() - start) < time)
 		usleep(time / 10);

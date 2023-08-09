@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 18:52:17 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/08/09 20:38:28 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/08/09 21:23:09 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_data
 	int				finished;
 	struct s_philo	*philos;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t write;
+	pthread_mutex_t	write;
 	pthread_mutex_t	death;
 	pthread_mutex_t	meals;
 	pthread_t		*tid;
@@ -45,7 +45,7 @@ typedef struct s_philo
 	int				id;
 	long long		time_after_food;
 	int				times_eaten;
-	pthread_mutex_t time;
+	pthread_mutex_t	time;
 }	t_philo;
 
 int			check_arguments(int size, char **s);
@@ -61,6 +61,8 @@ void		ft_printf(t_data *data, char *msg, int id);
 t_data		*ft_init_philo(int size, char **s);
 void		philo_creation(t_data *philos);
 void		food_utils(t_data *data, t_philo *philo);
+
+int			check_death(t_data *data);
 int			philo_death(t_philo *philo);
 void		main_death(t_data *data, t_philo *philo);
 void		ft_finish(t_data *philos);

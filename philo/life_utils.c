@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 15:58:23 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/08/09 20:39:37 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/08/09 21:22:54 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,13 @@
 void	ft_printf(t_data *data, char *msg, int id)
 {
 	pthread_mutex_lock(&(data->write));
-	/* if (ft_strcmp(msg, "took his second fork") == 0)
+	if (ft_strcmp(msg, "took his second fork") == 0)
 	{
 		printf("%lld Philospher %d %s\n", get_time() - data->start, id, msg);
 		printf("%lld Philospher %d is eating\n", get_time() - data->start, id);
 	}
 	else
-		printf("%lld Philospher %d %s\n", get_time() - data->start, id, msg); */
-	printf("%lld Philospher %d %s\n", get_time() - data->start, id, msg);
+		printf("%lld Philospher %d %s\n", get_time() - data->start, id, msg);
 	pthread_mutex_unlock(&(data->write));
 }
 
@@ -41,6 +40,16 @@ void	food_utils(t_data *data, t_philo *philo)
 		}
 		pthread_mutex_unlock(&(data->meals));
 	}
+}
+
+int	check_death(t_data *data)
+{
+	int	res;
+
+	pthread_mutex_lock(&(data->death));
+	res = data->finished;
+	pthread_mutex_unlock(&(data->death));
+	return (res);
 }
 
 int	philo_death(t_philo *philo)
@@ -71,16 +80,19 @@ void	main_death(t_data *data, t_philo *philo)
 {
 	int	i;
 
-	while (1)
+	if (data->max_meals != 0)
 	{
-		i = 0;
-		while (i < data->number)
+		while (1)
 		{
-			if (philo_death(&(philo[i])))			
-				break;
-			i++;
+			i = 0;
+			while (i < data->number)
+			{
+				if (philo_death(&(philo[i])))
+					break ;
+				i++;
+			}
+			if (i != data->number)
+				break ;
 		}
-		if (i != data->number)
-			break ;
 	}
 }

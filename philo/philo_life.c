@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 19:40:47 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/08/09 21:33:33 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/08/10 13:46:48 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,9 @@ void	philo_creation(t_data *data)
 	data->philos = philo;
 	data->start = get_time();
 	pthread_mutex_init(&(data->write), NULL);
+	ft_init_philo(data, philo);
 	while (i < data->number)
 	{
-		philo[i].id = i;
-		philo[i].data = data;
 		philo[i].time_after_food = get_time();
 		pthread_create(&(data->tid[i]), NULL, &thread_function, &(philo[i]));
 		i++;

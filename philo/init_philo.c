@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:49:15 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/08/09 21:21:53 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/08/10 13:47:13 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	check_arguments(int size, char **s)
 }
 
 /* This function will be : Initializing the data structure */
-t_data	*ft_init_philo(int size, char **s)
+t_data	*ft_init_data(int size, char **s)
 {
 	int		i;
 	t_data	*data;
@@ -86,24 +86,15 @@ t_data	*ft_init_philo(int size, char **s)
 	return (data);
 }
 
-/* This function will free the allocated elements and destroy the mutexes */
-void	ft_finish(t_data *data)
+void	ft_init_philo(t_data *data, t_philo *philo)
 {
-	int		i;
-	t_philo	*philos;
+	int	i;
 
 	i = 0;
-	philos = data->philos;
-	pthread_mutex_destroy(&(data->write));
-	pthread_mutex_destroy(&(data->death));
-	pthread_mutex_destroy(&(data->meals));
 	while (i < data->number)
 	{
-		pthread_mutex_destroy(&(data->forks[i]));
-		pthread_mutex_destroy(&(philos[i++].time));
+		philo[i].id = i;
+		philo[i].data = data;
+		pthread_mutex_init(&(philo[i++].time), NULL);
 	}
-	free(philos);
-	free(data->tid);
-	free(data->forks);
-	free(data);
 }

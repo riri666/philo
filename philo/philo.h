@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 18:52:17 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/08/09 21:23:09 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/08/10 13:46:00 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ u_int64_t	get_time(void);
 int			ft_usleep(useconds_t time);
 void		ft_printf(t_data *data, char *msg, int id);
 
-t_data		*ft_init_philo(int size, char **s);
+t_data		*ft_init_data(int size, char **s);
+void		ft_init_philo(t_data *data, t_philo *philo);
 void		philo_creation(t_data *philos);
 void		food_utils(t_data *data, t_philo *philo);
 

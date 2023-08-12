@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:49:13 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/08/09 20:55:07 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/08/12 16:46:41 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ long int	ft_atoi(char *s)
 	while (s[i] == '0')
 		i++;
 	if (ft_strlen(s + i) > 11)
-	{
-		write(2, "Error\n", 6);
-		exit(EXIT_FAILURE);
-	}
+		return (-1);
 	while ((s[i] >= '0') && (s[i] <= '9'))
 		res = res * 10 + s[i++] - '0';
 	return (res);
@@ -59,11 +56,7 @@ u_int64_t	get_time(void)
 {
 	struct timeval	tv;
 
-	if (gettimeofday(&tv, NULL))
-	{
-		printf("gettimeofday() FAILURE\n");
-		exit(EXIT_FAILURE);
-	}
+	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * (u_int64_t)1000) + (tv.tv_usec / 1000));
 }
 

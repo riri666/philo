@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:49:15 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/08/10 13:47:13 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/08/12 16:46:17 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	ft_limits(int size, char **s)
 	i = 1;
 	while (i < size)
 	{
-		if (ft_atoi(s[i]) > 2147483647)
+		if (ft_atoi(s[i]) > 2147483647 || ft_atoi(s[i]) == -1)
 			return (0);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 15:58:23 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/08/09 21:22:54 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/08/12 16:22:49 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	main_death(t_data *data, t_philo *philo)
 {
 	int	i;
 
-	if (data->max_meals != 0)
+	if (data->max_meals != 0 && data->number != 0)
 	{
 		while (1)
 		{

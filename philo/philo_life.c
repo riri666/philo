@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 19:40:47 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/08/10 13:46:48 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/08/14 18:01:24 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,23 @@
 
 static int	ft_second_fork(t_data *data, int id)
 {
-	if (id == 0)
+	if (id == 1)
 		return (data->number - 1);
 	else
-		return (id - 1);
+		return (id - 2);
 }
 
 static void	philo_eating(t_philo *philo, t_data *data, int id, int second)
 {
-	ft_printf(data, "took his second fork", id);
+	ft_printf(data, "has taken a fork", id);
+	ft_printf(data, "is eating", id);
 	ft_usleep(data->t_eat);
 	pthread_mutex_lock(&(philo->time));
 	philo->time_after_food = get_time();
 	philo->times_eaten++;
 	pthread_mutex_unlock(&(philo->time));
 	food_utils(data, philo);
-	pthread_mutex_unlock(&(data->forks[id]));
+	pthread_mutex_unlock(&(data->forks[id - 1]));
 	pthread_mutex_unlock(&(data->forks[second]));
 }
 
@@ -39,22 +40,22 @@ static int	philo_food(t_philo *philo, t_data *data, int id)
 	int	second_fork;
 
 	second_fork = ft_second_fork(data, id);
-	pthread_mutex_lock(&(data->forks[id]));
+	pthread_mutex_lock(&(data->forks[id - 1]));
 	if (check_death(data))
 	{
-		pthread_mutex_unlock(&(data->forks[id]));
+		pthread_mutex_unlock(&(data->forks[id - 1]));
 		return (0);
 	}
-	ft_printf(data, "took his first fork", id);
+	ft_printf(data, "has taken a fork", id);
 	if (data->number == 1)
 	{
-		pthread_mutex_unlock(&(data->forks[id]));
+		pthread_mutex_unlock(&(data->forks[id - 1]));
 		return (0);
 	}
 	pthread_mutex_lock(&(data->forks[second_fork]));
 	if (check_death(data))
 	{
-		pthread_mutex_unlock(&(data->forks[id]));
+		pthread_mutex_unlock(&(data->forks[id - 1]));
 		pthread_mutex_unlock(&(data->forks[second_fork]));
 		return (0);
 	}

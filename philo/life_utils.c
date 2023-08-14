@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 15:58:23 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/08/12 16:22:49 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/08/14 18:00:51 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,7 @@
 void	ft_printf(t_data *data, char *msg, int id)
 {
 	pthread_mutex_lock(&(data->write));
-	if (ft_strcmp(msg, "took his second fork") == 0)
-	{
-		printf("%lld Philospher %d %s\n", get_time() - data->start, id, msg);
-		printf("%lld Philospher %d is eating\n", get_time() - data->start, id);
-	}
-	else
-		printf("%lld Philospher %d %s\n", get_time() - data->start, id, msg);
+	printf("%lld %d %s\n", get_time() - data->start, id, msg);
 	pthread_mutex_unlock(&(data->write));
 }
 

@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:49:15 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/08/12 16:46:17 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/08/14 18:00:05 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	ft_init_philo(t_data *data, t_philo *philo)
 	i = 0;
 	while (i < data->number)
 	{
-		philo[i].id = i;
+		philo[i].id = i + 1;
 		philo[i].data = data;
 		pthread_mutex_init(&(philo[i++].time), NULL);
 	}

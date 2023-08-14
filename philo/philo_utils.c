@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:49:13 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/08/12 16:46:41 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/08/14 17:56:17 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,6 @@ long int	ft_atoi(char *s)
 	while ((s[i] >= '0') && (s[i] <= '9'))
 		res = res * 10 + s[i++] - '0';
 	return (res);
-}
-
-int	ft_strcmp(char *s1, char *s2)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (s1[i] && s2[j])
-		if (s1[i++] != s2[j++])
-			return (-1);
-	return (0);
 }
 
 /* My version of the time functions because they are more precise */

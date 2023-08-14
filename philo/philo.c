@@ -6,7 +6,7 @@
 /*   By: rchbouki <rchbouki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 18:52:15 by rchbouki          #+#    #+#             */
-/*   Updated: 2023/08/10 13:43:24 by rchbouki         ###   ########.fr       */
+/*   Updated: 2023/08/14 17:56:06 by rchbouki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	main(int argc, char *argv[])
 		printf("You need to type in valid numeric arguments as follows :\n");
 		printf("[number_of_philosophers] [time_to_die] [time_to_eat] ");
 		printf("[time_to_eat] [time_to_sleep] [OPTIMAL : max_times_of_food]\n");
-		exit(EXIT_FAILURE);
+		return (0);
 	}
 	data = ft_init_data(argc, argv);
 	if (!data)
